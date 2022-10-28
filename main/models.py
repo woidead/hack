@@ -1,8 +1,8 @@
-from tabnanny import verbose
 from django.db import models
-from main.views import *
+import requests
+from django.shortcuts import render
 
-class Customer(models.Model):
+class Client(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     last_name = models.CharField(max_length=100, blank=True)
     number = models.CharField(max_length=1000)
@@ -13,7 +13,7 @@ class Customer(models.Model):
 
 class Order(models.Model):
     product = models.CharField(max_length=500, verbose_name='Order')
-    customer = models.ForeignKey(Customer, on_delete = models.CASCADE, verbose_name='Client')
+    customer = models.ForeignKey(Client, on_delete = models.CASCADE, verbose_name='Client')
     total_price = models.IntegerField(verbose_name='Total price')
     phone = models.IntegerField(verbose_name='Phone number')
     address = models.CharField(max_length=500, null=True, verbose_name='Addres')

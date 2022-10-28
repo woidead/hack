@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %} корзина {% endblock %}
+{% block content %}
+
+<div class="container" >
+    <div class="all" style="margin-top: 60px;">
+        {% if count_of_product != 0 %}
+        <div class="vverh">
+            <div class="vverhlevo">
+                <h2>Корзина</h2>
+            </div>
+            <div class="vverhpravo">
+                <h4>Общая сумма: {{all_products_sum}}$</h4>
+                <h4>Количество вещей: {{count_of_product}}</h4>
+            </div>
+        </div>
+        <div class="niz">
+
+            {% for i in lst reversed %}
+            <div class="cross">
+                <div class="s">
+                    <div class="name">
+                        <h6 class="h6b">{{i.0.1}}</h6>
+                        <a href="{% url 'removeCart' id=i.0.0 %}" class="text-muted nav-link">x</a>
+                    </div>
+
+                    <div class="count">
+                        <h6>количество {{i.1}}</h6>
+                        <p>{{i.0.4}}$</p>
+                    </div>
+                </div>
+
+                <div class="price">
+                </div>
+                <div class="img"><img width="200px" src="{{i.0.3}}" alt=""></div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% if count_of_product != 0 %}
+
+    <div class="row mt-4 d-flex align-items-center">
+        <div class="col-sm-6 order-md-2 text-right">
+            <b>
+                <a type="button" class="text nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                    Оформить заказ
+                </a>
+            </b>
+        </div>
+        {% endif %}
+
+        {% if messages %}
+        {% for i in messages %}
+        <div class="alert alert-{{i.extra_tags}} d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill" />
+            </svg>
+            <div>
+                {{i}}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="/order/">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Имя:</label>
+                                <input type="text" class="form-control" id="recipient-name" name="c_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Фамилия:</label>
+                                <input type="text" class="form-control" id="recipient-name" name="c_lastname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Ваш номер:</label>
+                                <input type="text" class="form-control" id="recipient-name" name="c_number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Адрес:</label>
+                                <input type="text" class="form-control" id="recipient-name" name="c_addres">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Сообщение:</label>
+                                <textarea class="form-control" id="message-text" name="c_message"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Отправить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% if count_of_product == 0 %}
+<h2 class="text-center mt-5">Корзина пуста!</h2>
+{% endif %}
+
+
+
+{% endblock %}

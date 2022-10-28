@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} more {% endblock %}
+{% block content %}
+
+<div class="block" style="margin-top: 40px;">
+    <div class="img2">
+        <img height="300px" src="{{idd.0.3}}"  alt="">
+    </div>
+    <div class="box2">
+        <h2 class="card-title1">{{idd.0.1}}</h2>
+        <div class="between1">
+            <h4 class="card-text1">{{idd.0.2}}</h4>
+            <h5>{{idd.0.4}} $</h5>
+        </div>
+        <button type="submit" class="btn btn-sm btn-outline-secondary"><a class="nav-link" href="{% url 'addCart' pk=idd.0.0 %}">В корзину</a></button>
+    </div>
+</div>
+
+{% endblock %}
+
+
